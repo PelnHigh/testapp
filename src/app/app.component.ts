@@ -17,7 +17,7 @@ export class AppComponent {
   get loadingDone() {
     return this.planet.loadingDone;
   }
-  
+
   constructor(
     private routeCacheService: RouteCacheService,
     private planet: Planet,
@@ -137,6 +137,7 @@ export class AppComponent {
 
     setTimeout(() => {
       this.routeCacheService.clearCache(path);
+      // this.routeCacheService.clearAllRouteCache();
     }, 100);
   }
 

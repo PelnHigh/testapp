@@ -2,6 +2,7 @@ import {
   RouteReuseStrategy,
   ActivatedRouteSnapshot,
   DetachedRouteHandle,
+  OutletContext,
 } from '@angular/router';
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
@@ -16,9 +17,7 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
     route: ActivatedRouteSnapshot,
     handle: DetachedRouteHandle | null
   ): void {
-    if (route.routeConfig) {
-      this.handlers[route.routeConfig.path!] = handle;
-    }
+    this.handlers[route.routeConfig.path] = handle;
   }
 
   shouldAttach(route: ActivatedRouteSnapshot): boolean {

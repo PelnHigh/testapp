@@ -1,15 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { DefaultLayoutComponent } from './default/default-layout.component';
+import { Home2Component } from './home2/home2.component';
+import { EmptyComponent } from '@worktile/planet';
 
 const routes: Routes = [
   {
-    path: 'app1',
+    path: '**',
+    component: EmptyComponent,
     children: [
       {
-        path: '',
+        path: 'home1',
         component: HomeComponent,
+      },
+      {
+        path: 'home2',
+        component: Home2Component,
       },
     ],
   },
