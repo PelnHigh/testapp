@@ -17,24 +17,27 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
     route: ActivatedRouteSnapshot,
     handle: DetachedRouteHandle | null
   ): void {
-    this.handlers[route.routeConfig.path] = handle;
+    this.handlers[(route as any)._routerState.url] = handle;
   }
 
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
-    return !!route.routeConfig && !!this.handlers[route.routeConfig.path!];
+    return !!(route as any).routeConfig && !!this.handlers[(route as any)._routerState.url!];
   }
 
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
-    if (!route.routeConfig || !this.handlers[route.routeConfig.path!]) {
+    if (!(route as any).routeConfig || !this.handlers[(route as any)._routerState.url!]) {
       return null;
     }
-    return this.handlers[route.routeConfig.path!];
+    return this.handlers[(route as any)._routerState.url!];
   }
 
   shouldReuseRoute(
     future: ActivatedRouteSnapshot,
     curr: ActivatedRouteSnapshot
   ): boolean {
+    if(future?.routeConfig?.component.name === 'EmptyComponent' || !future.routeConfig){
+      return false;
+    }
     return future.routeConfig === curr.routeConfig;
   }
 }

@@ -23,7 +23,6 @@ export class AppComponent {
     private planet: Planet,
     private router: Router
   ) {
-
     this.planet.setOptions({
       switchMode: SwitchModes.coexist,
       errorHandler: (error) => {
@@ -62,12 +61,10 @@ export class AppComponent {
       .pipe(filter((e) => e instanceof ActivationEnd))
       .subscribe((e) => {
         const thisEvt = <ActivationEnd>e;
-        const activatedRoutePath = thisEvt.snapshot.routeConfig?.path;
-        const routeData = thisEvt.snapshot.routeConfig?.data;
-        let menuTitle = '新标签页';
-        if (routeData) {
-          menuTitle = routeData['title'];
-        }
+        const activatedRoutePath = (thisEvt.snapshot as any)._routerState?.url;
+        const name = (thisEvt.snapshot as any)._routerState?.url;
+        let menuTitle = name;
+
         let isExist = false;
         this.tabs.every((t, i) => {
           if (activatedRoutePath === t.path) {
@@ -85,6 +82,7 @@ export class AppComponent {
   }
 
   activeMenu(menuPath: string | undefined, menuTitle: string): void {
+    debugger;
     if (!menuPath || menuPath == '**') return;
     let menuIndex = -1;
     this.tabs.every((t, i) => {

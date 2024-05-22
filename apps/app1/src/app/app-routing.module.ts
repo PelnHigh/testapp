@@ -18,10 +18,12 @@ const routes: Routes = [
       {
         path: 'home1',
         component: HomeComponent,
+        data: { title: 'home1' }
       },
       {
         path: 'home2',
         component: Home2Component,
+        data: { title: 'home2' }
       },
     ],
   },
