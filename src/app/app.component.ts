@@ -23,6 +23,7 @@ export class AppComponent {
     private planet: Planet,
     private router: Router
   ) {
+
     this.planet.setOptions({
       switchMode: SwitchModes.coexist,
       errorHandler: (error) => {
@@ -84,7 +85,7 @@ export class AppComponent {
   }
 
   activeMenu(menuPath: string | undefined, menuTitle: string): void {
-    if (!menuPath) return;
+    if (!menuPath || menuPath == '**') return;
     let menuIndex = -1;
     this.tabs.every((t, i) => {
       if (menuPath === t.path) {

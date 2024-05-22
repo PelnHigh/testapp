@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { Home2Component } from './home2/home2.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { DefaultLayoutComponent } from './default/default-layout.component';
+import { CustomReuseStrategy } from 'src/cms/RouteReuseStrategy';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { DefaultLayoutComponent } from './default/default-layout.component';
     Home2Component,
   ],
   imports: [BrowserModule, AppRoutingModule],
+  providers: [{ provide: RouteReuseStrategy, useClass: CustomReuseStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

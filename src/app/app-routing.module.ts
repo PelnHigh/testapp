@@ -17,8 +17,8 @@ const routes: Routes = [
   { path: 'page5', component: Page5Component, data: { title: 'Page5' } },
   {
     path: 'app1',
-    component: EmptyComponent,
     data: { title: 'APP1' },
+    component: EmptyComponent,
     children: [
       {
         path: '**',
