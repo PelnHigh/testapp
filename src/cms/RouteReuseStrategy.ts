@@ -4,9 +4,9 @@ import {
   DetachedRouteHandle,
   OutletContext,
 } from '@angular/router';
+(window as any).handlers = {};
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
-  public handlers: { [key: string]: DetachedRouteHandle } = {};
 
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
     // Customize this condition to specify which routes should be cached
@@ -17,18 +17,21 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
     route: ActivatedRouteSnapshot,
     handle: DetachedRouteHandle | null
   ): void {
-    this.handlers[(route as any)._routerState.url] = handle;
+    if(handle && (handle as any).componentRef.componentType.name === 'EmptyComponent'){
+      return;
+    }
+    (window as any).handlers[(route as any)._routerState.url] = handle;
   }
 
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
-    return !!(route as any).routeConfig && !!this.handlers[(route as any)._routerState.url!];
+    return !!(route as any).routeConfig && !!(window as any).handlers[(route as any)._routerState.url!];
   }
 
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle | null {
-    if (!(route as any).routeConfig || !this.handlers[(route as any)._routerState.url!]) {
+    if (!(route as any).routeConfig || !(window as any).handlers[(route as any)._routerState.url!]) {
       return null;
     }
-    return this.handlers[(route as any)._routerState.url!];
+    return (window as any).handlers[(route as any)._routerState.url!];
   }
 
   shouldReuseRoute(

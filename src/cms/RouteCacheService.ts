@@ -26,10 +26,10 @@ export class RouteCacheService {
   }
 
   clearCache(routePath: string): void {
-    const reuseStrategy = this.router.routeReuseStrategy as CustomReuseStrategy;
-    if (reuseStrategy.handlers[routePath]) {
-      this.deactivateOutlet(reuseStrategy.handlers[routePath]);
-      delete reuseStrategy.handlers[routePath];
+    if ((window as any).handlers[routePath]) {
+      let asd = (window as any).handlers[routePath];
+      delete (window as any).handlers[routePath];
+      this.deactivateOutlet(asd);
     }
   }
 }
