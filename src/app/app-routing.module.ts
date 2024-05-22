@@ -19,6 +19,12 @@ const routes: Routes = [
     path: 'app1',
     component: EmptyComponent,
     data: { title: 'APP1' },
+    children: [
+      {
+        path: '**',
+        component: EmptyComponent,
+      },
+    ],
   },
 ];
 

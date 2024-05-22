@@ -1,0 +1,19 @@
+<thy-layout>
+  <thy-sidebar>
+    <div class="sidebar-header">
+      <span class="title cursor-pointer">App1</span>
+      <!-- <button class="action" thyButtonIcon="wtf wtf-project-add-o" thyLight="true" thySize="lg"></button> -->
+    </div>
+    <div class="sidebar-content">
+      <thy-menu>
+        <a thyMenuItem [routerLink]="['/app1/home']" routerLinkActive="active"
+          >App1 Dashboard</a
+        >
+        <a thyMenuItem [routerLink]="['/app1/home2']" routerLinkActive="active"
+          >App1 Users</a
+        >
+      </thy-menu>
+    </div>
+  </thy-sidebar>
+  <thy-content> <router-outlet></router-outlet> </thy-content>
+</thy-layout>
